@@ -1,0 +1,7 @@
+parameters:
+#    lansole_pages.example.class: Lansole\PagesBundle\Example
+
+services:
+#    lansole_pages.example:
+#        class: %lansole_pages.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]
