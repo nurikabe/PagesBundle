@@ -1,0 +1,6 @@
+LansolePagesBundle_page:
+    pattern:  /{path}
+    defaults: { _controller: LansolePagesBundle:Page:index }
+    requirements:
+        _method:  GET
+        path: ^(.)+$

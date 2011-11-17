@@ -1,0 +1,17 @@
+{% extends 'LansolePagesBundle:Core:layout.html.twig' %}
+
+{% block title %}Page Not Found{% endblock %}
+
+{% block container %}
+<div class="row">
+    <div class="span16">
+        <div class="alert-message block-message info" data-alert="true">
+            <p><strong>Page Not Found</strong></p>
+            <p>Do you want to create this page?</p>
+            <div class="alert-actions">
+              <a class="btn small success" href="#">Create Page</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
