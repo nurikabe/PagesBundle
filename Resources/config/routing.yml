@@ -1,3 +1,33 @@
+# Admin - Page
+LansolePagesBundle_page_new:
+    pattern:  /admin/page/new
+    defaults: { _controller: LansolePagesBundle:PageAdmin:new }
+    requirements:
+        _method:  GET
+
+LansolePagesBundle_page_create:
+    pattern:  /admin/page/create
+    defaults: { _controller: LansolePagesBundle:PageAdmin:create }
+    requirements:
+        _method:  POST
+
+LansolePagesBundle_page_edit:
+    pattern:  /admin/page/{slug}/edit
+    defaults: { _controller: LansolePagesBundle:PageAdmin:edit }
+    requirements:
+        _method:  GET
+
+LansolePagesBundle_page_update:
+    pattern:  /admin/page/{slug}/update
+    defaults: { _controller: LansolePagesBundle:PageAdmin:update }
+    requirements:
+        _method: POST
+
+LansolePagesBundle_page_delete:
+    pattern:  /admin/page/{slug}/delete
+    defaults: { _controller: LansolePagesBundle:PageAdmin:delete }
+
+# The God route
 LansolePagesBundle_page:
     pattern:  /{path}
     defaults: { _controller: LansolePagesBundle:Page:index }

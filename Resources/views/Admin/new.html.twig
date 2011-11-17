@@ -1,0 +1,17 @@
+{% extends 'LansolePagesBundle:Core:layout.html.twig' %}
+
+{% block title %}New Page{% endblock %}
+
+{% block container %}
+<div class="row admin">
+    <div class="span16">
+        <div class="page-header">
+            <header>
+                <h2>Create a new Page</h2>
+            </header>
+        </div>
+
+        {% include 'LansolePagesBundle:Admin:form.html.twig' with { 'form': form, 'path': path('LansolePagesBundle_page_create') } %}
+    </div>
+</div>
+{% endblock %}

@@ -3,14 +3,16 @@
 namespace Lansole\PagesBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM,
-    Gedmo\Mapping\Annotation as Gedmo;
+    Gedmo\Mapping\Annotation as Gedmo,
+    Gedmo\Tree\Node;
 
 /**
  * @ORM\Entity(repositoryClass="Lansole\PagesBundle\Repository\PageRepository")
  * @ORM\Table(name="page")
  * @ORM\HasLifecycleCallbacks()
+ * @Gedmo\Tree(type="nested")
  */
-class Page
+class Page implements Node
 {
     /**
      * @ORM\Id
@@ -25,15 +27,56 @@ class Page
     protected $title;
 
     /**
+     * @Gedmo\TreeLeft
+     * @ORM\Column(type="integer")
+     */
+    protected $lft;
+
+    /**
+     * @Gedmo\TreeLevel
+     * @ORM\Column(type="integer")
+     */
+    protected $lvl;
+
+    /**
+     * @Gedmo\TreeRight
+     * @ORM\Column(type="integer")
+     */
+    protected $rgt;
+
+    /**
+     * @Gedmo\TreeRoot
+     * @ORM\Column(type="integer")
+     */
+    protected $root;
+
+    /**
+     * @Gedmo\TreeParent
+     * @ORM\ManyToOne(targetEntity="Page", inversedBy="children")
+     */
+    protected $parent;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Page", mappedBy="parent")
+     * @ORM\OrderBy({"lft" = "ASC"})
+     */
+    protected $children;
+
+    /**
      * @Gedmo\Slug(fields={"title"})
      * @ORM\Column(type="string", unique="true")
      */
     protected $slug;
 
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable="true")
      */
     protected $path;
+
+    /**
+     * @ORM\Column(type="string")
+     */
+    protected $template;
 
     /**
      * @ORM\Column(type="datetime")
@@ -52,6 +95,14 @@ class Page
     {
         $this->setCreatedAt(new \DateTime());
         $this->setUpdatedAt(new \DateTime());
+    }
+
+    /**
+     * __toString
+     */
+    public function __toString()
+    {
+      return $this->getTitle();
     }
 
     /**
@@ -169,6 +220,146 @@ class Page
      */
     public function getPath()
     {
-        return $this->path;
+        return substr($this->path, 1);
+    }
+
+    /**
+     * Set lft
+     *
+     * @param integer $lft
+     */
+    public function setLft($lft)
+    {
+        $this->lft = $lft;
+    }
+
+    /**
+     * Get lft
+     *
+     * @return integer 
+     */
+    public function getLft()
+    {
+        return $this->lft;
+    }
+
+    /**
+     * Set lvl
+     *
+     * @param integer $lvl
+     */
+    public function setLvl($lvl)
+    {
+        $this->lvl = $lvl;
+    }
+
+    /**
+     * Get lvl
+     *
+     * @return integer 
+     */
+    public function getLvl()
+    {
+        return $this->lvl;
+    }
+
+    /**
+     * Set rgt
+     *
+     * @param integer $rgt
+     */
+    public function setRgt($rgt)
+    {
+        $this->rgt = $rgt;
+    }
+
+    /**
+     * Get rgt
+     *
+     * @return integer 
+     */
+    public function getRgt()
+    {
+        return $this->rgt;
+    }
+
+    /**
+     * Set root
+     *
+     * @param integer $root
+     */
+    public function setRoot($root)
+    {
+        $this->root = $root;
+    }
+
+    /**
+     * Get root
+     *
+     * @return integer 
+     */
+    public function getRoot()
+    {
+        return $this->root;
+    }
+
+    /**
+     * Set parent
+     *
+     * @param Lansole\PagesBundle\Entity\Page $parent
+     */
+    public function setParent(\Lansole\PagesBundle\Entity\Page $parent)
+    {
+        $this->parent = $parent;
+    }
+
+    /**
+     * Get parent
+     *
+     * @return Lansole\PagesBundle\Entity\Page 
+     */
+    public function getParent()
+    {
+        return $this->parent;
+    }
+
+    /**
+     * Add children
+     *
+     * @param Lansole\PagesBundle\Entity\Page $children
+     */
+    public function addPage(\Lansole\PagesBundle\Entity\Page $children)
+    {
+        $this->children[] = $children;
+    }
+
+    /**
+     * Get children
+     *
+     * @return Doctrine\Common\Collections\Collection 
+     */
+    public function getChildren()
+    {
+        return $this->children;
+    }
+
+    /**
+     * Set template
+     *
+     * @param string $template
+     */
+    public function setTemplate($template)
+    {
+        $this->template = $template;
+    }
+
+    /**
+     * Get template
+     *
+     * @return string 
+     */
+    public function getTemplate()
+    {
+        return $this->template;
     }
 }

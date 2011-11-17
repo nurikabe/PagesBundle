@@ -18,7 +18,7 @@ class PageController extends Controller
         $page = $em->getRepository('LansolePagesBundle:Page')->findOneBy(array('path' => sprintf('/%s', $path)));
 
         if (!$page && false === $this->get('security.context')->isGranted('ROLE_ADMIN')) {
-            throw $this->createNotFoundException('Unable to find page.');
+            throw $this->createNotFoundException('Unable to find Page.');
         } elseif (!$page && $this->get('security.context')->isGranted('ROLE_ADMIN')) {
             
 

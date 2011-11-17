@@ -4,8 +4,26 @@
 
 {% block container %}
 <div class="row">
-  <div class="span16">
-    <h1>{{ page.title }}</h1>
-  </div>
+    {% if is_granted('ROLE_ADMIN') %}
+        <section class="admin">
+            <div class="alert-message block-message info" data-alert="true">
+                <p><strong>Administration</strong></p>
+                <p>Manage the current Page</p>
+                <div class="alert-actions">
+                    <a class="btn small primary" href="{{ path('LansolePagesBundle_page_edit', { 'slug': page.slug }) }}">Edit Page</a>
+                    <a class="btn small error" href="{{ path('LansolePagesBundle_page_delete', { 'slug': page.slug }) }}">Delete Page</a>
+                </div>
+            </div>
+        </section>
+    {% endif %}
+
+    {% if app.session.hasFlash('page-success') %}
+        <div class="alert-message success" data-alert="true">
+            <a class="close" href="#">×</a>
+            <p>{{ app.session.flash('page-success')|raw }}</p>
+        </div>
+    {% endif %}
+
+    {% include 'LansolePagesBundle:Template:' ~ page.template ~ '.html.twig' with { 'page': page } %}
 </div>
 {% endblock %}
