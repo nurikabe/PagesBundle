@@ -2,22 +2,20 @@
 
 namespace Lansole\PagesBundle\Twig;
 
-use Symfony\Component\DependencyInjection\ContainerInterface;
+use Lansole\PagesBundle\Entity\BlockManagerInterface;
 
 class PagesExtension extends \Twig_Extension
 {
-    protected $container;
-    protected $em;
+    protected $blockManager;
     protected $options;
     protected $params;
 
     /**
      * Contructor
      */
-    public function __construct(ContainerInterface $container)
+    public function __construct(BlockManagerInterface $blockManager)
     {
-        $this->container = $container;
-        $this->em = $this->container->get('doctrine.orm.entity_manager');
+        $this->blockManager = $blockManager;
 
         $this->options = array(
             'tag'  => 'div',
@@ -46,8 +44,7 @@ class PagesExtension extends \Twig_Extension
     {
         $options = array_merge($this->options, $options);
 
-        $block = $this->em->getRepository('LansolePagesBundle:Block')
-                          ->getBlock($page, $slug, $options['type']);
+        $block = $this->blockManager->getBlock($page, $slug, $options['type']);
 
         $extra = array(
             'id'      => sprintf('%s-block', $slug),

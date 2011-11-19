@@ -1,9 +1,13 @@
 parameters:
-#    lansole_pages.example.class: Lansole\PagesBundle\Example
+#    lansole_pages.entity.block_manager_interface: Lansole\PagesBundle\Entity\BlockManagerInterface
 
 services:
+    lansole_pages.block_manager:
+      class:  Lansole\PagesBundle\Entity\BlockManager
+      arguments: [@doctrine.orm.entity_manager]
+
     twig.extension.pages:
         class: Lansole\PagesBundle\Twig\PagesExtension
-        arguments: [@service_container]
+        arguments: [@lansole_pages.block_manager]
         tags:
             - { name: twig.extension }
