@@ -7,7 +7,6 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 class PagesExtension extends \Twig_Extension
 {
     protected $container;
-    protected $router;
     protected $em;
     protected $options;
     protected $params;
@@ -18,7 +17,6 @@ class PagesExtension extends \Twig_Extension
     public function __construct(ContainerInterface $container)
     {
         $this->container = $container;
-        $this->router = $this->container->get('router');
         $this->em = $this->container->get('doctrine.orm.entity_manager');
 
         $this->options = array(
@@ -28,8 +26,7 @@ class PagesExtension extends \Twig_Extension
 
         $this->params = array(
             'data-role' => 'editable', 
-            'data-type' => $this->options['type'],
-            'data-url'  => $this->router->generate('LansolePagesBundle_block_update')
+            'data-type' => $this->options['type']
         );
     }
 

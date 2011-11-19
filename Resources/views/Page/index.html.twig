@@ -14,7 +14,7 @@
 
 
 {% block container %}
-<div class="row">
+<div class="row pages" data-lansole-pages-block-update="{{ path('LansolePagesBundle_block_update') }}">
     {% if is_granted('ROLE_ADMIN') %}
         <section class="admin">
             <div class="alert-message block-message info" data-alert="true">
