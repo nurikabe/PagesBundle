@@ -8,18 +8,36 @@ use Symfony\Component\Form\AbstractType,
 
 class PageType extends AbstractType
 {
+    /**
+     * Build form
+     *
+     * @param FormBuilder $builder
+     * @param array       $options
+     */
     public function buildForm(FormBuilder $builder, array $options)
     {
         $builder->add('title')
+                ->add('description')
+                ->add('keywords')
                 ->add('parent')
                 ->add('template', 'choice', array('choices' => $this->getTemplates()));
     }
 
+    /**
+     * Get name
+     *
+     * @return string
+     */
     public function getName()
     {
         return 'lansole_pages_page';
     }
 
+    /**
+     * Search on views folder for templates
+     *
+     * @return array
+     */
     protected function getTemplates()
     {
         $finder = new Finder();

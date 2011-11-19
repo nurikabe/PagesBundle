@@ -5,6 +5,8 @@
 
               {{ form_errors(form) }}
               {{ form_errors(form.title) }}
+              {{ form_errors(form.description) }}
+              {{ form_errors(form.keywords) }}
               {{ form_errors(form.parent) }}
               {{ form_errors(form.template) }}
         </div>
@@ -14,6 +16,20 @@
         {{ form_label(form.title) }}
         <div class="input">
             {{ form_widget(form.title, { 'attr': {'class': 'span11'} }) }}
+        </div>
+    </div>
+
+    <div class="clearfix{% if form_errors(form.description) %} error{% endif %}">
+        {{ form_label(form.description) }}
+        <div class="input">
+            {{ form_widget(form.description, { 'attr': {'class': 'span11'} }) }}
+        </div>
+    </div>
+
+    <div class="clearfix{% if form_errors(form.keywords) %} error{% endif %}">
+        {{ form_label(form.keywords) }}
+        <div class="input">
+            {{ form_widget(form.keywords, { 'attr': {'class': 'span11'} }) }}
         </div>
     </div>
 
@@ -40,7 +56,7 @@
             <a class="btn error" href="{{ path('LansolePagesBundle_page_delete', { 'slug': page.slug }) }}" confirm="Are you sure?">Delete</a>
             <a class="btn" href="{{ path('LansolePagesBundle_page', { 'path': page.path }) }}">Cancel</a>
         {% else %}
-            <a class="btn" href="{{ path('homepage') }}">Cancel</a>
+            <a class="btn" href="{{ path('LansolePagesBundle_page') }}">Cancel</a>
         {% endif %}
     </div>
 </form>

@@ -2,6 +2,17 @@
 
 {% block title %}{{ page.title }}{% endblock %}
 
+{% block meta %}
+    {% if (page.description) %}
+        <meta name="description" content="{{ page.description }}">
+    {% endif %}
+
+    {% if (page.keywords) %}
+        <meta name="keywords" content="{{ page.keywords }}">
+    {% endif %}
+{% endblock %}
+
+
 {% block container %}
 <div class="row">
     {% if is_granted('ROLE_ADMIN') %}
@@ -26,4 +37,10 @@
 
     {% include 'LansolePagesBundle:Template:' ~ page.template ~ '.html.twig' with { 'page': page } %}
 </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('bundles/lansolepages/js/jeditable/jeditable.js') }}"></script>
+    <script src="{{ asset('bundles/lansolepages/js/block.app.js') }}"></script>
 {% endblock %}

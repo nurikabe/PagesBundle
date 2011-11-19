@@ -79,6 +79,21 @@ class Page implements Node
     protected $template;
 
     /**
+     * @ORM\Column(type="text", nullable="true")
+     */
+    protected $description;
+
+    /**
+     * @ORM\Column(type="text", nullable="true")
+     */
+    protected $keywords;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Block", mappedBy="page")
+     */
+    protected $blocks;
+
+    /**
      * @ORM\Column(type="datetime")
      */
     protected $created_at;
@@ -89,7 +104,7 @@ class Page implements Node
     protected $updated_at;
 
     /**
-     * Construct
+     * Constructor
      */
     public function __construct()
     {
@@ -361,5 +376,65 @@ class Page implements Node
     public function getTemplate()
     {
         return $this->template;
+    }
+
+    /**
+     * Set description
+     *
+     * @param text $description
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+    }
+
+    /**
+     * Get description
+     *
+     * @return text 
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * Set keywords
+     *
+     * @param text $keywords
+     */
+    public function setKeywords($keywords)
+    {
+        $this->keywords = $keywords;
+    }
+
+    /**
+     * Get keywords
+     *
+     * @return text 
+     */
+    public function getKeywords()
+    {
+        return $this->keywords;
+    }
+
+    /**
+     * Add blocks
+     *
+     * @param Lansole\PagesBundle\Entity\Block $blocks
+     */
+    public function addBlock(\Lansole\PagesBundle\Entity\Block $blocks)
+    {
+        $this->blocks[] = $blocks;
+    }
+
+    /**
+     * Get blocks
+     *
+     * @return Doctrine\Common\Collections\Collection 
+     */
+    public function getBlocks()
+    {
+        return $this->blocks;
     }
 }

@@ -27,10 +27,17 @@ LansolePagesBundle_page_delete:
     pattern:  /admin/page/{slug}/delete
     defaults: { _controller: LansolePagesBundle:PageAdmin:delete }
 
+# Block
+LansolePagesBundle_block_update:
+    pattern:  /block/update
+    defaults: { _controller: LansolePagesBundle:Block:update }
+    requirements:
+        _method:  POST
+
 # The God route
 LansolePagesBundle_page:
     pattern:  /{path}
-    defaults: { _controller: LansolePagesBundle:Page:index }
+    defaults: { _controller: LansolePagesBundle:Page:index, path: '' }
     requirements:
         _method:  GET
         path: ^(.)+$

@@ -82,7 +82,7 @@ class PageAdminController extends Controller
     }
 
     /**
-     * Update post
+     * Update page
      *
      * @param string  $slug
      * @param Request $request
@@ -116,11 +116,11 @@ class PageAdminController extends Controller
             return $this->redirect($this->generateUrl('LansolePagesBundle_page', array('path' => $page->getPath())));
         }
 
-        return $this->render('LansolePagesBundle:Admin:edit.html.twig', array('post' => $page, 'form' => $form->createView()));
+        return $this->render('LansolePagesBundle:Admin:edit.html.twig', array('page' => $page, 'form' => $form->createView()));
     }
 
     /**
-     * Delete a post
+     * Delete a page
      *
      * @param string $slug
      */
@@ -132,16 +132,16 @@ class PageAdminController extends Controller
                    ->getEntityManager();
 
         $page = $em->getRepository('LansolePagesBundle:Page')
-                   ->getPost($slug);
+                   ->findOneBy(array('slug' => $slug));
 
         if (!$page) {
-            throw $this->createNotFoundException('Unable to find Blog post.');
+            throw $this->createNotFoundException('Unable to find Page.');
         }
 
         $em->remove($page);
         $em->flush();
 
-        $this->get('session')->setFlash('post-success', '<strong>Well done!</strong> Your post was successfully deleted.');
+        $this->get('session')->setFlash('page-success', '<strong>Well done!</strong> Your page was successfully deleted.');
 
         return $this->redirect($this->generateUrl('LansolePagesBundle_homepage'));
     }
