@@ -143,7 +143,7 @@ class PageAdminController extends Controller
 
         $this->get('session')->setFlash('page-success', '<strong>Well done!</strong> Your page was successfully deleted.');
 
-        return $this->redirect($this->generateUrl('LansolePagesBundle_homepage'));
+        return $this->redirect($this->generateUrl('LansolePagesBundle_page'));
     }
 
     /**

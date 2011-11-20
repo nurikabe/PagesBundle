@@ -8,6 +8,6 @@ services:
 
     twig.extension.pages:
         class: Lansole\PagesBundle\Twig\PagesExtension
-        arguments: [@lansole_pages.block_manager]
+        arguments: [@lansole_pages.block_manager, @security.context]
         tags:
             - { name: twig.extension }

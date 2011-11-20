@@ -2,20 +2,23 @@
 
 namespace Lansole\PagesBundle\Twig;
 
-use Lansole\PagesBundle\Entity\BlockManagerInterface;
+use Lansole\PagesBundle\Entity\BlockManagerInterface,
+    Symfony\Component\Security\Core\SecurityContext;
 
 class PagesExtension extends \Twig_Extension
 {
     protected $blockManager;
+    protected $security;
     protected $options;
     protected $params;
 
     /**
      * Contructor
      */
-    public function __construct(BlockManagerInterface $blockManager)
+    public function __construct(BlockManagerInterface $blockManager, SecurityContext $security)
     {
         $this->blockManager = $blockManager;
+        $this->security = $security;
 
         $this->options = array(
             'tag'  => 'div',
@@ -24,7 +27,7 @@ class PagesExtension extends \Twig_Extension
 
         $this->params = array(
             'data-role' => 'editable', 
-            'data-type' => $this->options['type']
+            'data-type' => $this->options['type'],
         );
     }
 
@@ -73,7 +76,13 @@ class PagesExtension extends \Twig_Extension
 
       unset($options['tag'], $options['type']);
 
-      return array_merge($this->params, $options);
+      $params = array_merge($this->params, $options);
+
+      if (false === $this->security->isGranted('ROLE_ADMIN')) {
+        unset($params['data-id'], $params['data-role'], $params['data-type']);
+      }
+
+      return $params;
     }
 
     /**

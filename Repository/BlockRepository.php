@@ -11,14 +11,14 @@ class BlockRepository extends EntityRepository
      */
     public function getBlockForPage($page, $slug, $type)
     {
-      $result = $this->createQueryBuilder('b')
-                     ->select('b')
-                     ->where('b.page = :page AND b.slug = :slug')
-                     ->setParameter('page', $page)
-                     ->setParameter('slug', $slug)
-                     ->getQuery()
-                     ->getResult();
+        $result = $this->createQueryBuilder('b')
+                       ->select('b')
+                       ->where('b.page = :page AND b.slug = :slug')
+                       ->setParameter('page', $page)
+                       ->setParameter('slug', $slug)
+                       ->getQuery()
+                       ->getResult();
 
-      return isset($result[0]) ? $result[0] : null;
+        return isset($result[0]) ? $result[0] : null;
     }
 }

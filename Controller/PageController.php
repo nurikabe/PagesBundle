@@ -20,8 +20,6 @@ class PageController extends Controller
         if (!$page && false === $this->get('security.context')->isGranted('ROLE_ADMIN')) {
             throw $this->createNotFoundException('Unable to find Page.');
         } elseif (!$page && $this->get('security.context')->isGranted('ROLE_ADMIN')) {
-            
-
             return $this->render('LansolePagesBundle:Page:new.html.twig', array('path' => $path));
         }
 
