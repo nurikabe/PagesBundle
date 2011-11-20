@@ -94,13 +94,13 @@ Templates
 ---------
 
 This bundle uses [Bootstrap, from Twitter][5]. You can use other stylesheets and javascripts simply overriding the *LansolePagesBundle:Core:stylesheets.html.twig* and *LansolePagesBundle:Core:javascripts.html.twig* views.
+
 The Block rendering uses [jEditable][6] for edit in place and [jWYSIWYG][7] for rich text editing.
 
 Extra
 -----
 
-You can use the fixtures included on the bundle using the [DoctrineFixturesBundle][8].
-To load it, just run the follow command:
+You can use the fixtures included on the bundle using the [DoctrineFixturesBundle][8]. To load it, just run the follow command:
 
     $ ./app/console doctrine:fixture:load --fixtures=vendor/bundles/Lansole/PagesBundle/DataFixtures/
 
