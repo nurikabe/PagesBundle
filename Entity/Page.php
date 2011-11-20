@@ -74,7 +74,7 @@ class Page implements Node
     protected $path;
 
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable="true")
      */
     protected $template;
 

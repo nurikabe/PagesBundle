@@ -12,6 +12,10 @@
     {% endif %}
 {% endblock %}
 
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('bundles/lansoleblog/css/wysiwyg/wysiwyg.css') }}">
+{% endblock %}
 
 {% block container %}
 <div class="row pages" data-lansole-pages-block-update="{{ path('LansolePagesBundle_block_update') }}">
@@ -42,5 +46,7 @@
 {% block javascripts %}
     {{ parent() }}
     <script src="{{ asset('bundles/lansolepages/js/jeditable/jeditable.js') }}"></script>
+    <script src="{{ asset('bundles/lansolepages/js/jeditable/jeditable.wysiwyg.js') }}"></script>
+    <script src="{{ asset('bundles/lansolepages/js/wysiwyg/wysiwyg.js') }}"></script>
     <script src="{{ asset('bundles/lansolepages/js/block.app.js') }}"></script>
 {% endblock %}
