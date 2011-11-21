@@ -1,4 +1,10 @@
 # Admin - Page
+LansolePagesBundle_pages:
+    pattern:  /admin/pages
+    defaults: { _controller: LansolePagesBundle:PageAdmin:index }
+    requirements:
+        _method:  GET
+
 LansolePagesBundle_page_new:
     pattern:  /admin/page/new
     defaults: { _controller: LansolePagesBundle:PageAdmin:new }

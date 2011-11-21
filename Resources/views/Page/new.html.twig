@@ -5,11 +5,12 @@
 {% block container %}
 <div class="row">
     <div class="span16">
-        <div class="alert-message block-message info" data-alert="true">
+        <div class="alert-message block-message alert" data-alert="true">
             <p><strong>Page Not Found</strong></p>
             <p>Do you want to create this page?</p>
             <div class="alert-actions">
               <a class="btn small success" href="{{ path('LansolePagesBundle_page_new') }}">Create Page</a>
+              <a class="btn small" href="{{ path('LansolePagesBundle_pages') }}">Manage Pages</a>
             </div>
         </div>
     </div>

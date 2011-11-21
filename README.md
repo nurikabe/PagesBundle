@@ -81,6 +81,14 @@ You need a root page and for this you can load the fixtures included on the bund
 
     INSERT INTO `page` (`id`, `title`, `slug`, `created_at`, `updated_at`, `path`, `parent_id`, `lft`, `lvl`, `rgt`, `root`, `template`, `description`, `keywords`) VALUES (1, 'Homepage', 'homepage', NOW(), NOW(), '/', NULL, 1, 0, 2, 1, NULL, NULL, NULL);
 
+For a better SEO added a meta block to your *base.html.twig* under the title tag:
+
+    // app/Resources/views/base.html.twig
+    <head>
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        {% block meta %}{% endblock %}
+        // ...
+
 Security
 --------
 

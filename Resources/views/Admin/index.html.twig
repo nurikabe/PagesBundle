@@ -1,0 +1,34 @@
+{% extends 'LansolePagesBundle:Core:layout.html.twig' %}
+
+{% block title %}Manage Pages{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link type="text/css" rel="stylesheet" href="{{ asset('bundles/lansolepages/css/pages.css') }}">
+{% endblock %}
+
+{% block container %}
+<div class="row admin">
+    <div class="span16">
+        <div class="page-header">
+            <header>
+                <h2>Manage Pages</h2>
+            </header>
+        </div>
+
+        {% if pages|length %}
+            <ul class="tree">
+                {% for page in pages %}
+                    <li>
+                        <div class="node">
+                            <span>{{ page.title }}</span>
+                        </div>
+
+                        {% include 'LansolePagesBundle:Admin:children.html.twig' with { 'children': page.children } %}
+                    </li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

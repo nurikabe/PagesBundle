@@ -1,0 +1,18 @@
+{% if children|length %}
+    <ul>
+        {% for page in children %}
+            <li class="offset1">
+                <div class="node">
+                    <span>{{ page.title }}</span>
+
+                    <div class="pull-right">
+                        <a href="{{ path('LansolePagesBundle_page_edit', { 'slug': page.slug }) }}">Edit</a>
+                        <a href="{{ path('LansolePagesBundle_page_delete', { 'slug': page.slug }) }}">Delete</a>
+                    </div>
+                </div>
+
+                {% include 'LansolePagesBundle:Admin:children.html.twig' with { 'children': page.children } %}
+            </li>
+        {% endfor %}
+    </ul>
+{% endif %}

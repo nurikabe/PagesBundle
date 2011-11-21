@@ -10,6 +10,18 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller,
 
 class PageAdminController extends Controller
 {
+    public function indexAction()
+    {
+        $this->checkSecure();
+
+        $em = $this->getDoctrine()
+                   ->getEntityManager();
+
+        $pages = $em->getRepository('LansolePagesBundle:Page')->getRootNodes();
+
+        return $this->render('LansolePagesBundle:Admin:index.html.twig', array('pages' => $pages));
+    }
+
     /**
      * New page
      */
@@ -72,7 +84,7 @@ class PageAdminController extends Controller
         $page = $em->getRepository('LansolePagesBundle:Page')
                    ->findOneBy(array('slug' => $slug));
 
-        if (!$page) {
+        if (!$page || $page->getId() == 1) {
             throw $this->createNotFoundException('Unable to find Page.');
         }
 
@@ -97,7 +109,7 @@ class PageAdminController extends Controller
         $page = $em->getRepository('LansolePagesBundle:Page')
                    ->findOneBy(array('slug' => $slug));
 
-        if (!$page) {
+        if (!$page || $page->getId() == 1) {
             throw $this->createNotFoundException('Unable to find Page.');
         }
 
@@ -134,7 +146,7 @@ class PageAdminController extends Controller
         $page = $em->getRepository('LansolePagesBundle:Page')
                    ->findOneBy(array('slug' => $slug));
 
-        if (!$page) {
+        if (!$page || $page->getId() == 1) {
             throw $this->createNotFoundException('Unable to find Page.');
         }
 
