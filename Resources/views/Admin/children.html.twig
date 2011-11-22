@@ -6,8 +6,9 @@
                     <span>{{ page.title }}</span>
 
                     <div class="pull-right">
-                        <a href="{{ path('LansolePagesBundle_page_edit', { 'slug': page.slug }) }}">Edit</a>
-                        <a href="{{ path('LansolePagesBundle_page_delete', { 'slug': page.slug }) }}">Delete</a>
+                        <a href="{{ path('LansolePagesBundle_page', { 'path': page.path }) }}">Show</a>
+                        <a href="{{ path('LansolePagesBundle_page_edit', { 'id': page.id }) }}">Edit</a>
+                        <a href="{{ path('LansolePagesBundle_page_delete', { 'id': page.id }) }}">Delete</a>
                     </div>
                 </div>
 

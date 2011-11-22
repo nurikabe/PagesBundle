@@ -3,47 +3,51 @@ LansolePagesBundle_pages:
     pattern:  /admin/pages
     defaults: { _controller: LansolePagesBundle:PageAdmin:index }
     requirements:
-        _method:  GET
+        _method: GET
 
 LansolePagesBundle_page_new:
     pattern:  /admin/page/new
     defaults: { _controller: LansolePagesBundle:PageAdmin:new }
     requirements:
-        _method:  GET
+        _method: GET
 
 LansolePagesBundle_page_create:
     pattern:  /admin/page/create
     defaults: { _controller: LansolePagesBundle:PageAdmin:create }
     requirements:
-        _method:  POST
+        _method: POST
 
 LansolePagesBundle_page_edit:
-    pattern:  /admin/page/{slug}/edit
+    pattern:  /admin/page/{id}/edit
     defaults: { _controller: LansolePagesBundle:PageAdmin:edit }
     requirements:
-        _method:  GET
+        id: \d+
+        _method: GET
 
 LansolePagesBundle_page_update:
-    pattern:  /admin/page/{slug}/update
+    pattern:  /admin/page/{id}/update
     defaults: { _controller: LansolePagesBundle:PageAdmin:update }
     requirements:
+        id: \d+
         _method: POST
 
 LansolePagesBundle_page_delete:
-    pattern:  /admin/page/{slug}/delete
+    pattern:  /admin/page/{id}/delete
     defaults: { _controller: LansolePagesBundle:PageAdmin:delete }
+    requirements:
+        id: \d+
 
 # Block
 LansolePagesBundle_block_update:
     pattern:  /block/update
     defaults: { _controller: LansolePagesBundle:Block:update }
     requirements:
-        _method:  POST
+        _method: POST
 
 # The God route
 LansolePagesBundle_page:
     pattern:  /{path}
     defaults: { _controller: LansolePagesBundle:Page:index, path: '' }
     requirements:
-        _method:  GET
+        _method: GET
         path: ^(.)+$

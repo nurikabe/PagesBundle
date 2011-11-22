@@ -10,8 +10,8 @@
                 <h2>Edit "{{ page.title }}" Page</h2>
             </header>
         </div>
-
-        {% include 'LansolePagesBundle:Admin:form.html.twig' with { 'form': form, 'path': path('LansolePagesBundle_page_update', { 'slug': page.slug }) } %}
     </div>
+
+    {% include 'LansolePagesBundle:Admin:form.html.twig' with { 'form': form, 'path': path('LansolePagesBundle_page_update', { 'id': page.id }) } %}
 </div>
 {% endblock %}

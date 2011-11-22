@@ -4,7 +4,8 @@ namespace Lansole\PagesBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM,
     Gedmo\Mapping\Annotation as Gedmo,
-    Gedmo\Tree\Node;
+    Gedmo\Tree\Node,
+    Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="Lansole\PagesBundle\Repository\PageRepository")
@@ -23,6 +24,7 @@ class Page implements Node
 
     /**
      * @ORM\Column(type="string")
+     * @Assert\NotBlank(message="You must enter the page title")
      */
     protected $title;
 
@@ -53,6 +55,7 @@ class Page implements Node
     /**
      * @Gedmo\TreeParent
      * @ORM\ManyToOne(targetEntity="Page", inversedBy="children")
+     * @ORM\JoinColumn(name="parent_id", referencedColumnName="id", onDelete="CASCADE")
      */
     protected $parent;
 
@@ -79,6 +82,12 @@ class Page implements Node
     protected $template;
 
     /**
+     * @ORM\Column(type="string", nullable="true")
+     * @Assert\Url(message="You must enter a valid link address")
+     */
+    protected $link;
+
+    /**
      * @ORM\Column(type="text", nullable="true")
      */
     protected $description;
@@ -87,6 +96,11 @@ class Page implements Node
      * @ORM\Column(type="text", nullable="true")
      */
     protected $keywords;
+
+    /**
+     * @ORM\Column(type="boolean", nullable="true")
+     */
+    protected $is_published;
 
     /**
      * @ORM\OneToMany(targetEntity="Block", mappedBy="page")
@@ -436,5 +450,45 @@ class Page implements Node
     public function getBlocks()
     {
         return $this->blocks;
+    }
+
+    /**
+     * Set is_published
+     *
+     * @param boolean $isPublished
+     */
+    public function setIsPublished($isPublished)
+    {
+        $this->is_published = $isPublished;
+    }
+
+    /**
+     * Get is_published
+     *
+     * @return boolean 
+     */
+    public function getIsPublished()
+    {
+        return $this->is_published;
+    }
+
+    /**
+     * Set link
+     *
+     * @param string $link
+     */
+    public function setLink($link)
+    {
+        $this->link = $link;
+    }
+
+    /**
+     * Get link
+     *
+     * @return string 
+     */
+    public function getLink()
+    {
+        return $this->link;
     }
 }

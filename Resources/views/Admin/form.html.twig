@@ -1,62 +1,95 @@
 <form action="{{ path }}" method="post" class="form-stacked" {{ form_enctype(form) }}>
-    {% if app.session.hasFlash('page-error') %}
-        <div class="alert-message block-message error">
-              <p>{{ app.session.flash('page-error')|raw }}</p>
+    <div class="row">
+        {% if app.session.hasFlash('page-error') %}
+            <div class="span16">
+                <div class="alert-message block-message error">
+                      <p>{{ app.session.flash('page-error')|raw }}</p>
 
-              {{ form_errors(form) }}
-              {{ form_errors(form.title) }}
-              {{ form_errors(form.description) }}
-              {{ form_errors(form.keywords) }}
-              {{ form_errors(form.parent) }}
-              {{ form_errors(form.template) }}
+                      {{ form_errors(form) }}
+                      {{ form_errors(form.title) }}
+                      {{ form_errors(form.description) }}
+                      {{ form_errors(form.keywords) }}
+                      {{ form_errors(form.parent) }}
+                      {{ form_errors(form.template) }}
+                      {{ form_errors(form.link) }}
+                </div>
+            </div>
+        {% endif %}
+
+        <div class="span11">
+            <fieldset>
+                <div class="clearfix{% if form_errors(form.title) %} error{% endif %}">
+                    {{ form_label(form.title) }}
+                    <div class="input">
+                        {{ form_widget(form.title, { 'attr': {'class': 'span11'} }) }}
+                    </div>
+                </div>
+
+                <div class="clearfix{% if form_errors(form.description) %} error{% endif %}">
+                    {{ form_label(form.description) }}
+                    <div class="input">
+                        {{ form_widget(form.description, { 'attr': {'class': 'span11'} }) }}
+                    </div>
+                </div>
+
+                <div class="clearfix{% if form_errors(form.keywords) %} error{% endif %}">
+                    {{ form_label(form.keywords) }}
+                    <div class="input">
+                        {{ form_widget(form.keywords, { 'attr': {'class': 'span11'} }) }}
+                    </div>
+                </div>
+
+                <div class="clearfix{% if form_errors(form.parent) %} error{% endif %}">
+                    {{ form_label(form.parent) }}
+                    <div class="input">
+                        {{ form_widget(form.parent) }}
+                    </div>
+                </div>
+
+                <div class="clearfix{% if form_errors(form.template) %} error{% endif %}">
+                    {{ form_label(form.template) }}
+                    <div class="input">
+                        {{ form_widget(form.template) }}
+                    </div>
+                </div>
+
+                <div class="clearfix{% if form_errors(form.link) %} error{% endif %}">
+                    {{ form_label(form.link) }}
+                    <div class="input">
+                        {{ form_widget(form.link, { 'attr': {'class': 'span11'} }) }}
+                    </div>
+                </div>
+            </fieldset>
         </div>
-    {% endif %}
 
-    <div class="clearfix{% if form_errors(form.title) %} error{% endif %}">
-        {{ form_label(form.title) }}
-        <div class="input">
-            {{ form_widget(form.title, { 'attr': {'class': 'span11'} }) }}
-        </div>
-    </div>
+        <div class="offset1 span4">
+            <fieldset>
+                <div class="clearfix">
+                    <label>Options</label>
+                </div>
 
-    <div class="clearfix{% if form_errors(form.description) %} error{% endif %}">
-        {{ form_label(form.description) }}
-        <div class="input">
-            {{ form_widget(form.description, { 'attr': {'class': 'span11'} }) }}
-        </div>
-    </div>
-
-    <div class="clearfix{% if form_errors(form.keywords) %} error{% endif %}">
-        {{ form_label(form.keywords) }}
-        <div class="input">
-            {{ form_widget(form.keywords, { 'attr': {'class': 'span11'} }) }}
-        </div>
-    </div>
-
-    <div class="clearfix{% if form_errors(form.parent) %} error{% endif %}">
-        {{ form_label(form.parent) }}
-        <div class="input">
-            {{ form_widget(form.parent) }}
-        </div>
-    </div>
-
-    <div class="clearfix{% if form_errors(form.template) %} error{% endif %}">
-        {{ form_label(form.template) }}
-        <div class="input">
-            {{ form_widget(form.template) }}
+                <div class="clearfix">
+                    <div class="input">
+                        {{ form_widget(form.is_published) }}
+                        <span>Is published</span>
+                    </div>
+                </div>
+            </fieldset>
         </div>
     </div>
 
     {{ form_rest(form) }}
 
-    <div class="actions">
-        <button type="submit" class="btn primary">Save</button>
+    <div class="span16">
+        <div class="actions">
+            <button type="submit" class="btn primary">Save</button>
 
-        {% if page.id %}
-            <a class="btn error" href="{{ path('LansolePagesBundle_page_delete', { 'slug': page.slug }) }}" confirm="Are you sure?">Delete</a>
-            <a class="btn" href="{{ path('LansolePagesBundle_page', { 'path': page.path }) }}">Cancel</a>
-        {% else %}
-            <a class="btn" href="{{ path('LansolePagesBundle_page') }}">Cancel</a>
-        {% endif %}
+            {% if page.id %}
+                <a class="btn error" href="{{ path('LansolePagesBundle_page_delete', { 'id': page.id }) }}" confirm="Are you sure?">Delete</a>
+                <a class="btn" href="{{ path('LansolePagesBundle_page', { 'path': page.path }) }}">Cancel</a>
+            {% else %}
+                <a class="btn" href="{{ path('LansolePagesBundle_page') }}">Cancel</a>
+            {% endif %}
+        </div>
     </div>
 </form>

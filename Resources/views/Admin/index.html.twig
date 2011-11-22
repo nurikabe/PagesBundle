@@ -16,6 +16,13 @@
             </header>
         </div>
 
+        {% if app.session.hasFlash('page-success') %}
+            <div class="alert-message success" data-alert="true">
+                <a class="close" href="#">×</a>
+                <p>{{ app.session.flash('page-success')|raw }}</p>
+            </div>
+        {% endif %}
+
         {% if pages|length %}
             <ul class="tree">
                 {% for page in pages %}
@@ -29,6 +36,10 @@
                 {% endfor %}
             </ul>
         {% endif %}
+
+        <div class="well">
+            <a class="btn success" href="{{ path('LansolePagesBundle_page_new') }}">New Page</a>
+        </div>
     </div>
 </div>
 {% endblock %}

@@ -3,7 +3,7 @@
 namespace Lansole\PagesBundle\Twig;
 
 use Lansole\PagesBundle\Entity\BlockManagerInterface,
-    Symfony\Component\Security\Core\SecurityContext;
+    Symfony\Component\Security\Core\SecurityContextInterface;
 
 class PagesExtension extends \Twig_Extension
 {
@@ -15,7 +15,7 @@ class PagesExtension extends \Twig_Extension
     /**
      * Contructor
      */
-    public function __construct(BlockManagerInterface $blockManager, SecurityContext $security)
+    public function __construct(BlockManagerInterface $blockManager, SecurityContextInterface $security)
     {
         $this->blockManager = $blockManager;
         $this->security = $security;

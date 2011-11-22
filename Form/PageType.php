@@ -20,7 +20,9 @@ class PageType extends AbstractType
                 ->add('description')
                 ->add('keywords')
                 ->add('parent')
-                ->add('template', 'choice', array('choices' => $this->getTemplates()));
+                ->add('template', 'choice', array('choices' => $this->getTemplates()))
+                ->add('link')
+                ->add('is_published');
     }
 
     /**

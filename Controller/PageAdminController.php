@@ -72,9 +72,9 @@ class PageAdminController extends Controller
     /**
      * Edit a page
      *
-     * @param string $slug
+     * @param integer $id
      */
-    public function editAction($slug)
+    public function editAction($id)
     {
         $this->checkSecure();
 
@@ -82,7 +82,7 @@ class PageAdminController extends Controller
                    ->getEntityManager();
 
         $page = $em->getRepository('LansolePagesBundle:Page')
-                   ->findOneBy(array('slug' => $slug));
+                   ->find($id);
 
         if (!$page || $page->getId() == 1) {
             throw $this->createNotFoundException('Unable to find Page.');
@@ -96,10 +96,10 @@ class PageAdminController extends Controller
     /**
      * Update page
      *
-     * @param string  $slug
+     * @param integer  $id
      * @param Request $request
      */
-    public function updateAction($slug, Request $request)
+    public function updateAction($id, Request $request)
     {
         $this->checkSecure();
 
@@ -107,7 +107,7 @@ class PageAdminController extends Controller
                    ->getEntityManager();
 
         $page = $em->getRepository('LansolePagesBundle:Page')
-                   ->findOneBy(array('slug' => $slug));
+                   ->find($id);
 
         if (!$page || $page->getId() == 1) {
             throw $this->createNotFoundException('Unable to find Page.');
@@ -125,7 +125,9 @@ class PageAdminController extends Controller
 
             $this->get('session')->setFlash('page-success', '<strong>Well done!</strong> Your page was successfully updated.');
 
-            return $this->redirect($this->generateUrl('LansolePagesBundle_page', array('path' => $page->getPath())));
+            return $page->getLink() ? $this->redirect($this->generateUrl('LansolePagesBundle_pages')) : $this->redirect($this->generateUrl('LansolePagesBundle_page', array('path' => $page->getPath())));
+        } else {
+            $this->get('session')->setFlash('page-error', '<strong>You got an error!</strong> Change this and that and try again.');
         }
 
         return $this->render('LansolePagesBundle:Admin:edit.html.twig', array('page' => $page, 'form' => $form->createView()));
@@ -134,9 +136,9 @@ class PageAdminController extends Controller
     /**
      * Delete a page
      *
-     * @param string $slug
+     * @param integer $id
      */
-    public function deleteAction($slug)
+    public function deleteAction($id)
     {
         $this->checkSecure();
 
@@ -144,7 +146,7 @@ class PageAdminController extends Controller
                    ->getEntityManager();
 
         $page = $em->getRepository('LansolePagesBundle:Page')
-                   ->findOneBy(array('slug' => $slug));
+                   ->find($id);
 
         if (!$page || $page->getId() == 1) {
             throw $this->createNotFoundException('Unable to find Page.');
@@ -155,7 +157,7 @@ class PageAdminController extends Controller
 
         $this->get('session')->setFlash('page-success', '<strong>Well done!</strong> Your page was successfully deleted.');
 
-        return $this->redirect($this->generateUrl('LansolePagesBundle_page'));
+        return $this->redirect($this->generateUrl('LansolePagesBundle_pages'));
     }
 
     /**
