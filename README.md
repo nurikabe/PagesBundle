@@ -112,6 +112,11 @@ You can use the fixtures included on the bundle using the [DoctrineFixturesBundl
 
     $ ./app/console doctrine:fixture:load --fixtures=vendor/bundles/Lansole/PagesBundle/DataFixtures/
 
+How to use
+----------
+
+Check the files inside **Resources/doc**.
+
 Other
 -----
 
