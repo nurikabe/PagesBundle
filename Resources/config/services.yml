@@ -5,9 +5,12 @@ services:
     lansole_pages.block_manager:
       class:  Lansole\PagesBundle\Entity\BlockManager
       arguments: [@doctrine.orm.entity_manager]
+    lansole_pages.page_manager:
+      class:  Lansole\PagesBundle\Entity\PageManager
+      arguments: [@doctrine.orm.entity_manager]
 
     twig.extension.pages:
         class: Lansole\PagesBundle\Twig\PagesExtension
-        arguments: [@lansole_pages.block_manager, @security.context]
+        arguments: [@lansole_pages.block_manager, @lansole_pages.page_manager, @security.context, @router]
         tags:
             - { name: twig.extension }

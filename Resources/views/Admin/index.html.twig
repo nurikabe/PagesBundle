@@ -29,6 +29,11 @@
                     <li>
                         <div class="node">
                             <span>{{ page.title }}</span>
+
+                            <div class="pull-right">
+                                <a href="{{ path('LansolePagesBundle_page', { 'path': page.path }) }}">Show</a>
+                                <a href="{{ path('LansolePagesBundle_page_edit', { 'id': page.id }) }}">Edit</a>
+                            </div>
                         </div>
 
                         {% include 'LansolePagesBundle:Admin:children.html.twig' with { 'children': page.children } %}

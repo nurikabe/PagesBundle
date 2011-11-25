@@ -32,13 +32,11 @@ var blockApp = (function($) {
         },
 
         editable: function() {
-          var url = $('[data-lansole-pages-block-update]').attr('data-lansole-pages-block-update');
-
           $('[data-role]="editable"').each(function(index, value) {
               var el = $(value),
                   settings = blockApp._getEditableSettings(el);
 
-              el.editable(url, settings);
+              el.editable(el.attr('data-url'), settings);
           });
         },
 

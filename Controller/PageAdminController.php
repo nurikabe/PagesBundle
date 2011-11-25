@@ -84,10 +84,6 @@ class PageAdminController extends Controller
         $page = $em->getRepository('LansolePagesBundle:Page')
                    ->find($id);
 
-        if (!$page || $page->getId() == 1) {
-            throw $this->createNotFoundException('Unable to find Page.');
-        }
-
         $form = $this->createForm(new PageType(), $page);
 
         return $this->render('LansolePagesBundle:Admin:edit.html.twig', array('page' => $page, 'form' => $form->createView()));
@@ -108,10 +104,6 @@ class PageAdminController extends Controller
 
         $page = $em->getRepository('LansolePagesBundle:Page')
                    ->find($id);
-
-        if (!$page || $page->getId() == 1) {
-            throw $this->createNotFoundException('Unable to find Page.');
-        }
 
         $form = $this->createForm(new PageType(), $page);
 
