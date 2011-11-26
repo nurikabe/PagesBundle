@@ -1,3 +1,11 @@
+1.1 / 2011-11-26 
+==================
+
+  * Breadcrumb twig function 
+  * Block update with data-url param
+  * Homepage (root) is now editable
+  * Minor bugs fixed
+
 1.0 / 2011-11-25 
 ==================
 
