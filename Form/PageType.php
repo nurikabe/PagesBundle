@@ -43,20 +43,26 @@ class PageType extends AbstractType
      *
      * @return array
      */
-    protected function getTemplates()
-    {
-        $finder = new Finder();
-        $finder->files()->in('../src/Lansole/PagesBundle/Resources/views/Template')
-                        ->in(__DIR__ . '/../Resources/views/Template');
+   protected function getTemplates()
+   {
+       $finder = new Finder();
 
-        $templates = array();
+       $finder->files()->in(__DIR__ . '/../Resources/views/Template');
 
-        foreach ($finder->files() as $file) {
-            $name = str_replace(array('.html.twig', '.html.php'), '', $file->getFileName());
+       if (is_dir('../app/Resources/LansolePagesBundle/views/Template')) {
+         $finder->in('../app/Resources/LansolePagesBundle/views/Template');
+       }
 
-            $templates[$name] = ucwords(str_replace('_', ' ', $name));
-        }
+       $templates = array();
 
-        return $templates;
-    }
+       foreach ($finder->files() as $file) {
+           $name = str_replace(array('.html.twig', '.html.php'), '', $file->getFileName());
+
+           $templates[$name] = ucwords(str_replace('_', ' ', $name));
+       }
+
+       sort($templates);
+
+       return $templates;
+   }
 }
