@@ -61,7 +61,7 @@ class PageType extends AbstractType
            $templates[$name] = ucwords(str_replace('_', ' ', $name));
        }
 
-       sort($templates);
+       asort($templates);
 
        return $templates;
    }
