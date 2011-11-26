@@ -33,7 +33,11 @@
 
                     <p>
                         <a class="btn small primary" href="{{ path('LansolePagesBundle_page_edit', { 'id': page.id }) }}">Edit Page</a>
-                        <a class="btn small error" href="{{ path('LansolePagesBundle_page_delete', { 'id': page.id }) }}">Delete Page</a>
+
+                        {% if page.id is not sameas(1) %}
+                            <a class="btn small error" href="{{ path('LansolePagesBundle_page_delete', { 'id': page.id }) }}">Delete Page</a>
+                        {% endif %}
+
                         <a class="btn small pull-right" href="{{ path('LansolePagesBundle_pages') }}">Manage Pages</a>
                     </p>
                 </div>

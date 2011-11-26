@@ -13,6 +13,7 @@ class PageFixtures extends AbstractFixture implements OrderedFixtureInterface
         $page = new Page();
         $page->setTitle('Homepage');
         $page->setPath('/');
+        $page->setTemplate('default');
         $page->setIsPublished(false);
 
         $manager->persist($page);
