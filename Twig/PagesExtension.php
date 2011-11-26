@@ -3,22 +3,28 @@
 namespace Lansole\PagesBundle\Twig;
 
 use Lansole\PagesBundle\Entity\BlockManagerInterface,
-    Symfony\Component\Security\Core\SecurityContextInterface;
+    Lansole\PagesBundle\Entity\PageManagerInterface,
+    Symfony\Component\Security\Core\SecurityContextInterface,
+    Symfony\Component\Routing\RouterInterface;
 
 class PagesExtension extends \Twig_Extension
 {
     protected $blockManager;
+    protected $pageManager;
     protected $security;
+    protected $router;
     protected $options;
     protected $params;
 
     /**
      * Contructor
      */
-    public function __construct(BlockManagerInterface $blockManager, SecurityContextInterface $security)
+    public function __construct(BlockManagerInterface $blockManager, PageManagerInterface $pageManager, SecurityContextInterface $security, RouterInterface $router)
     {
         $this->blockManager = $blockManager;
+        $this->pageManager = $pageManager;
         $this->security = $security;
+        $this->router = $router;
 
         $this->options = array(
             'tag'  => 'div',
@@ -36,14 +42,15 @@ class PagesExtension extends \Twig_Extension
      */
     public function getFunctions() {
         return array(
-            'lansole_pages_block' => new \Twig_Function_Method($this, 'render', array('is_safe' => array('html'))),
+            'lansole_pages_block'      => new \Twig_Function_Method($this, 'block', array('is_safe' => array('html'))),
+            'lansole_pages_breadcrumb' => new \Twig_Function_Method($this, 'breadcrumb', array('is_safe' => array('html'))),
         );
     }
 
     /**
      * Renders a block
      */
-    public function render($page, $slug, $options = array())
+    public function block($page, $slug, $options = array())
     {
         $options = array_merge($this->options, $options);
 
@@ -60,6 +67,29 @@ class PagesExtension extends \Twig_Extension
     }
 
     /**
+     * Renders the breadcrumb
+     */
+    public function breadcrumb($page)
+    {
+        $parents = $this->pageManager->getPath($page);
+
+        $separator = $this->getContentTag('span', '/', array('class' => 'divider'));
+        $items = '';
+
+        foreach ($parents as $parent) {
+            if ($parent->getId() !== $page->getId()) {
+              $item = $this->getContentTag('a', $parent->getTitle(), array('href' => $this->router->generate('LansolePagesBundle_page', array('path' => $parent->getPath())))) . $separator;
+            } else {
+              $item = $parent->getTitle();
+            }
+
+            $items .= $this->getContentTag('li', $item);
+        }
+
+        return $this->getContentTag('ul', $items, array('class' => 'breadcrumb'));
+    }
+
+    /**
      * Get name
      */
     public function getName()
@@ -73,13 +103,14 @@ class PagesExtension extends \Twig_Extension
     protected function getParams($options)
     {
       $options['data-type'] = $options['type'];
+      $options['data-url'] = $this->router->generate('LansolePagesBundle_block_update');
 
       unset($options['tag'], $options['type']);
 
       $params = array_merge($this->params, $options);
 
       if (false === $this->security->isGranted('ROLE_ADMIN')) {
-        unset($params['data-id'], $params['data-role'], $params['data-type']);
+        unset($params['data-id'], $params['data-role'], $params['data-type'], $params['data-url']);
       }
 
       return $params;

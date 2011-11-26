@@ -21,32 +21,46 @@
 
 {% block container %}
 <div class="row page"{% if is_granted('ROLE_ADMIN') %} data-lansole-pages-block-update="{{ path('LansolePagesBundle_block_update') }}"{% endif %}>
-    {% if is_granted('ROLE_ADMIN') %}
-        <section class="admin">
-            <div class="well" data-alert="true">
-                <h6>Administration</h6>
+    <div class="span16">
+        {{ lansole_pages_breadcrumb(page) }}
+    </div>
 
-                <p>
-                    <a class="btn small primary" href="{{ path('LansolePagesBundle_page_edit', { 'id': page.id }) }}">Edit Page</a>
-                    <a class="btn small error" href="{{ path('LansolePagesBundle_page_delete', { 'id': page.id }) }}">Delete Page</a>
-                    <a class="btn small pull-right" href="{{ path('LansolePagesBundle_pages') }}">Manage Pages</a>
-                </p>
-            </div>
-        </section>
+    {% if is_granted('ROLE_ADMIN') %}
+        <div class="span16">
+            <section class="admin">
+                <div class="well" data-alert="true">
+                    <h6>Administration</h6>
+
+                    <p>
+                        <a class="btn small primary" href="{{ path('LansolePagesBundle_page_edit', { 'id': page.id }) }}">Edit Page</a>
+
+                        {% if page.id is not sameas(1) %}
+                            <a class="btn small error" href="{{ path('LansolePagesBundle_page_delete', { 'id': page.id }) }}">Delete Page</a>
+                        {% endif %}
+
+                        <a class="btn small pull-right" href="{{ path('LansolePagesBundle_pages') }}">Manage Pages</a>
+                    </p>
+                </div>
+            </section>
+        </div>
     {% endif %}
 
     {% if app.session.hasFlash('page-success') %}
-        <div class="alert-message success" data-alert="true">
-            <a class="close" href="#">×</a>
-            <p>{{ app.session.flash('page-success')|raw }}</p>
+        <div class="span16">
+            <div class="alert-message success" data-alert="true">
+                <a class="close" href="#">×</a>
+                <p>{{ app.session.flash('page-success')|raw }}</p>
+            </div>
         </div>
     {% endif %}
 
     {% if page.isPublished is sameas(false) %}
-        <div class="alert-message alert" data-alert="true">
-            <a class="close" href="#">×</a>
-            <p><strong>Attention!</strong> This Page isn't published.</p>
-        </div>
+        <div class="span16">
+            <div class="alert-message alert" data-alert="true">
+                <a class="close" href="#">×</a>
+                <p><strong>Attention!</strong> This Page isn't published.</p>
+            </div>
+        <div class="span16">
     {% endif %}
 
     {% include 'LansolePagesBundle:Template:' ~ page.template ~ '.html.twig' with { 'page': page } %}

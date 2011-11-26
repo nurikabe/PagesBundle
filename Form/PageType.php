@@ -19,10 +19,13 @@ class PageType extends AbstractType
         $builder->add('title')
                 ->add('description')
                 ->add('keywords')
-                ->add('parent')
                 ->add('template', 'choice', array('choices' => $this->getTemplates()))
                 ->add('link')
                 ->add('is_published');
+
+        if ($options['data']->getId() !== 1) {
+            $builder->add('parent');
+        }
     }
 
     /**
