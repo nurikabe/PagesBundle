@@ -5,7 +5,8 @@ namespace Lansole\PagesBundle\Twig;
 use Lansole\PagesBundle\Entity\BlockManagerInterface,
     Lansole\PagesBundle\Entity\PageManagerInterface,
     Symfony\Component\Security\Core\SecurityContextInterface,
-    Symfony\Component\Routing\RouterInterface;
+    Symfony\Component\Routing\RouterInterface,
+    Symfony\Component\DependencyInjection\Container;
 
 class PagesExtension extends \Twig_Extension
 {
@@ -19,12 +20,13 @@ class PagesExtension extends \Twig_Extension
     /**
      * Contructor
      */
-    public function __construct(BlockManagerInterface $blockManager, PageManagerInterface $pageManager, SecurityContextInterface $security, RouterInterface $router)
+    public function __construct(BlockManagerInterface $blockManager, PageManagerInterface $pageManager, SecurityContextInterface $security, RouterInterface $router, Container $container)
     {
         $this->blockManager = $blockManager;
         $this->pageManager = $pageManager;
         $this->security = $security;
         $this->router = $router;
+        $this->container = $container;
 
         $this->options = array(
             'tag'  => 'div',
@@ -32,7 +34,7 @@ class PagesExtension extends \Twig_Extension
         );
 
         $this->params = array(
-            'data-role' => 'editable', 
+            'data-role' => 'editable',
             'data-type' => $this->options['type'],
         );
     }
@@ -141,5 +143,12 @@ class PagesExtension extends \Twig_Extension
         }
 
         return $html;
+    }
+
+    public function getGlobals()
+    {
+        return array(
+            'lansole_pages_base' => $this->container->getParameter('lansole_pages.base'),
+        );
     }
 }

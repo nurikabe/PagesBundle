@@ -20,9 +20,10 @@ class Configuration implements ConfigurationInterface
         $treeBuilder = new TreeBuilder();
         $rootNode = $treeBuilder->root('lansole_pages');
 
-        // Here you should define the parameters that are allowed to
-        // configure your bundle. See the documentation linked above for
-        // more information on that topic.
+        $rootNode
+            ->children()
+                ->scalarNode('base')->cannotBeEmpty()->defaultValue('::layout.html.twig')->end()
+            ->end();
 
         return $treeBuilder;
     }
