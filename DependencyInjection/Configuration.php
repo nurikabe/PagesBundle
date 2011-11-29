@@ -22,7 +22,7 @@ class Configuration implements ConfigurationInterface
 
         $rootNode
             ->children()
-                ->scalarNode('base')->cannotBeEmpty()->defaultValue('::layout.html.twig')->end()
+                ->scalarNode('base')->cannotBeEmpty()->defaultValue('::base.html.twig')->end()
             ->end();
 
         return $treeBuilder;
